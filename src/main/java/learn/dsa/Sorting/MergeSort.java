@@ -5,15 +5,25 @@ public class MergeSort {
 
     public static void main(String[] args) {
         int arr[] = {4,6,12,15,20,22, 1,13,18};
-        merge(arr, 0, 5, 9);
+//        merge(arr, 0, 5, arr.length-1);
+        mergeSort(arr, 0, arr.length-1);
         for(int a : arr){
             System.out.print(a+ " ");
         }
     }
 
+    public static void mergeSort(int[] arr, int low, int high){
+        int mid = (high + low)/2;
+        if(low < high){
+            mergeSort(arr, low, mid);
+            mergeSort(arr, mid+1, high);
+            merge(arr, low, mid, high);
+        }
+    }
+
     public static void merge(int[] arr, int low, int mid, int high){
-        int[] arr1 = new int[mid+1 - low];
-        int[] arr2 = new int[high - mid - 1];
+        int[] arr1 = new int[mid - low +1];
+        int[] arr2 = new int[high - mid];
 
         for (int i = 0; i < arr1.length; i++) {
             arr1[i] = arr[low+i];
