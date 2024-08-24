@@ -1,0 +1,203 @@
+package learn.dsa.streams;
+
+import org.apache.poi.hpsf.Decimal;
+
+import javax.xml.transform.sax.SAXResult;
+import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+public class Challenges {
+
+
+    public static void averageOfIntegers(){
+        Stream.of(1,2,3,4,5).mapToDouble(ele -> ele).average().ifPresent(System.out::println);
+    }
+
+    public static void stringsToUppercase(){
+        List<String> str =
+                Stream.of("h","e","l","lo").map(String::toUpperCase).collect(Collectors.toList());
+        System.out.println(str.toString());
+
+    }
+
+    public static void sumOfEvenOddNumbers(){
+        int[] numbers = {1,2,3,4,5,6};
+        int evenSum = Arrays.stream(numbers).filter(ele -> ele%2==0).sum();
+        int oddSum = Arrays.stream(numbers).filter(ele->ele%2!=0).sum();
+        System.out.println(evenSum +" "+oddSum);
+    }
+
+    public static void removeDuplicatesFromList(){
+        List<Integer> numbers = List.of(1,2,3,2,4,5,6,2,4,7,4,5);
+        List<Integer> uniqueNumbers = numbers.stream().distinct().toList();
+        System.out.println(uniqueNumbers.toString());
+    }
+
+    public static void findNumberOfStringStartWithSpecificLetter(){
+        List<String> strings = List.of("hello", "harish", "world","warangal", "khyathi");
+        Long specificStringCount = strings.stream().filter(ele -> ele.startsWith("w")).count();
+        System.out.println(specificStringCount);
+    }
+
+    public static void sortString(){
+        List<String> strings = List.of("a", "d","z","c","d");
+        List<String> sortedStrings = strings.stream().sorted(Comparator.reverseOrder()).toList();
+        System.out.println(sortedStrings);
+    }
+
+    public static void maxAndMin(){
+        List<Integer> numbers = List.of(4,3,6,3,89);
+        int min = numbers.stream().min(Comparator.reverseOrder()).get();
+        int max = numbers.stream().max(Integer::compare).get();
+        System.out.println(min);
+        System.out.println(max);
+    }
+
+    public static void secondSmallestAndLargest(){
+        List<Integer> numbers = List.of(-1,1,4,5,3,2,6,7,8,23,44,56,99);
+        int secondSmallest = numbers.stream().distinct().sorted().skip(1).findFirst().orElse(-1);
+        int secondLargest =
+                numbers.stream().distinct().sorted(Comparator.reverseOrder()).skip(1).findFirst().orElse(-1);
+        System.out.println(secondSmallest + " "+secondLargest);
+    }
+
+    public static void frequencyOfEachElement(){
+        BiConsumer<String, List<String>> consumer =
+                (key, value) -> System.out.println(key +" "+value.size());
+        List<String> elements = List.of("a","a", "b", "b","c");
+        elements.stream().collect(Collectors.groupingBy(ele -> ele)).forEach(consumer::accept);
+    }
+
+    public static void joinStrings(){
+        List<String> elements = List.of("a", "a", "b", "b", "c");
+        Function<String, String> stringWithBraces = s-> '['+s+']';
+        String str = elements.stream().map(stringWithBraces::apply)
+                .collect(Collectors.joining(",","[","]"));
+        System.out.println(str);
+
+    }
+
+    public static void sortDecimals(){
+        List<Double> decimals = List.of(10.4, 23.67,1.4,45.00);
+        List<Double> sortedDecimals = decimals.stream().sorted(Comparator.reverseOrder()).toList();
+        System.out.println(sortedDecimals);
+    }
+
+    public static void frequencyOfCharInString(){
+        String str = "abcdacda";
+         Map<String,List<String>> freq =
+                 Arrays.stream(str.split("")).collect(Collectors.groupingBy(ele->ele));
+        System.out.println(freq);
+    }
+
+    private static void mergeUnsortedArrayIntoSorted() {
+        int[] randomNumbers = {12, 32, 2, 4, 777, 5, 32, 890, 422, 44, 99, 43};
+        int[] randomNumber2 = {4, 3, 2, 5, 6, 78, 98, 53, 90};
+
+       int sortedArrayByMergingTwoArray = IntStream.concat(Arrays.stream(randomNumbers),
+                Arrays.stream(randomNumber2)).boxed().sorted(Comparator.reverseOrder()).min(Comparator.reverseOrder()).orElse(-1);
+//        System.out.println(Arrays.toString(sortedArrayByMergingTwoArray));
+        System.out.println(sortedArrayByMergingTwoArray);
+    }
+
+    private static void mergeUnsortedArrayIntoSortedWithoutDuplicate() {
+        int[] randomNumbers = {12, 32, 2, 4, 777, 5, 32, 890, 422, 44, 99, 43};
+        int[] randomNumber2 = {4, 32, 2, 5, 6, 78, 98, 53, 90};
+
+        int[] mergedArray = IntStream.concat(Arrays.stream(randomNumbers),
+            Arrays.stream(randomNumber2)).sorted().distinct().toArray();
+        System.out.println(Arrays.toString(mergedArray));
+    }
+
+    private static void min3max3() {
+        List<Integer> randomNumbers = List.of(12, 32, 2, 4, 777, 5, 32, 890, 422, 44, 99, 43);
+        List<Integer> result = randomNumbers.stream().sorted().limit(3).toList();
+    }
+
+    private static void isAnagram2() {
+
+        String string1 = "listen";
+        String string2 = "silent";
+
+        String str1 = Arrays.stream(string1.split("")).sorted().collect(Collectors.joining());
+        String str2 = Arrays.stream(string2.split("")).sorted().collect(Collectors.joining());
+        System.out.println(str1+" "+str2);
+        if(str1.equals(str2)) System.out.println("true");
+    }
+
+    private static void sumOf() {
+        List<Integer> oneToTen = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        int sum = oneToTen.stream().reduce(Integer::sum).get();
+        System.out.println(sum);
+    }
+
+    private static void secondLargestNumberFromList() {
+        List<Integer> oneToTen = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        int secondLargest =
+                oneToTen.stream().sorted(Comparator.reverseOrder()).skip(1).findFirst().get();
+        System.out.println(secondLargest);
+
+    }
+
+    private static void sortByLengthOfList() {
+        List<String> names = Arrays.asList("rohit", "urmila", "rohit", "urmila", "ram", "sham", "sita", "gita");
+        List<String> increasingOrderNames =
+                names.stream().sorted(Comparator.comparingInt(String::length)).toList();
+        Iterator<String> itr = increasingOrderNames.listIterator();
+        while(itr.hasNext()){
+            System.out.println(itr.next());
+        }
+    }
+
+    private static void commonElements() {
+        List<Integer> oneToTen = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List<Integer> twoToTen = List.of(2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List<Integer> intersectingEles = oneToTen.stream().filter(twoToTen::contains).toList();
+        Iterator<Integer> itr = intersectingEles.listIterator();
+        while (itr.hasNext()) {
+            System.out.println(itr.next());
+        }
+    }
+
+    private static void reverseEachWord() {
+        String stmt = "java is OOP language";
+//        String reversedString =
+//                Arrays.stream(stmt.split("")).sorted(Comparator.reverseOrder()).collect(Collectors.joining(" "));
+//        System.out.println(reversedString);
+        String reversedString =
+                Arrays.stream(stmt.split(" ")).map(str -> new StringBuilder().append(str).reverse()).collect(Collectors.joining(" "));
+        System.out.println(reversedString);
+    }
+
+    public static void findFirstTest(){
+        int[] elements = {2, 3, 1, 4, 4, 1, 4, 333, 3, 333, 2, 2, 2, 5, 222};
+        boolean ele = Arrays.stream(elements).
+                allMatch(e -> e%2 == 0);
+        System.out.println(ele);
+    }
+
+    private static void mostRepeatedElement() {
+        int[] elements = {2, 3, 1, 4, 4, 1, 4, 333, 3, 333, 2, 2, 2, 5, 222};
+//        Arrays.stream(elements).
+    }
+
+    private static void checkIfStringPalindrome(){
+        String str = "racecar";
+        String finalStr = str.replaceAll("\\s+", "").toLowerCase();
+        boolean res =  IntStream.rangeClosed(0, finalStr.length()/2)
+                .noneMatch(i -> finalStr.charAt(i) != finalStr.charAt(finalStr.length() -1 -i));
+        System.out.println(res);
+    }
+
+
+    public static void main(String[] args) {
+//        frequencyOfCharInString();
+//        findFirstTest();
+        checkIfStringPalindrome();
+    }
+}

@@ -7,37 +7,28 @@ public class QuickSort {
 //        int[] arr = {18, 80, 30, 90, 40, 50, 70};
 //        int[] arr = {5, 3, 8, 4, 2, 7, 1, 10};
 //        hoareSort(arr, 0, arr.length-1);
-        int arr[] = {2};
-        lomutoSort(arr, 0, 0);
+        int arr[] = {15, 10, 4, 3, 20, 7};
+        lomutoSort(arr, 0, arr.length-1);
         for(int a: arr){
             System.out.print(a+" ");
         }
     }
 
     public static int lomutoSort(int[] arr, int low, int high){
-        int i = low -1;
+        int l = low-1;
+        int h = high;
         int pivot = arr[high];
-        for (int j = low; j < high; j++) {
-            if(arr[j] < pivot){
-                i++;
-//                arr[j] = arr[j] + arr[i];
-//                arr[i] = arr[j] - arr[i];
-//                arr[j] = arr[j] - arr[i];
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+        for(int i = 0; i<=high; i++){
+            if(arr[i] < pivot){
+                l++;
+                arr[i] = arr[l] + arr[i] - (arr[l] = arr[i]);
             }
         }
-//        arr[high] = arr[high] + arr[i + 1];
-//        arr[i+1] = arr[high] - arr[i + 1];
-//        arr[high] = arr[high] - arr[i + 1];
-        int temp = arr[high];
-        arr[high] = arr[i+1];
-        arr[i+1] = temp;
-        return i+1;
+        arr[h] = arr[l+1] + arr[h] - (arr[l+1] = arr[h]);
+        return l+1;
     }
 
-    public static void hoareSort(int arr[], int l, int h){
+    public static int hoareSort(int arr[], int l, int h){
         int pivot = arr[l];
         int i = l-1;
         int j = h +1;
@@ -49,7 +40,7 @@ public class QuickSort {
             do{
                 j--;
             }while (arr[j] > pivot);
-            if(i>=j) return;
+            if(i>=j) return j;
             arr[i] = arr[i] + arr[j];
             arr[j] = arr[i] - arr[j];
             arr[i] = arr[i] - arr[j];
