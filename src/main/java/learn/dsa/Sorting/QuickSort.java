@@ -8,7 +8,7 @@ public class QuickSort {
 //        int[] arr = {5, 3, 8, 4, 2, 7, 1, 10};
 //        hoareSort(arr, 0, arr.length-1);
         int arr[] = {15, 10, 4, 3, 20, 7};
-        lomutoSort(arr, 0, arr.length-1);
+        quickSort(arr, 0, arr.length - 1);
         for(int a: arr){
             System.out.print(a+" ");
         }
@@ -47,6 +47,26 @@ public class QuickSort {
         }
     }
 
+    public static void quickSort(int arr[], int l, int h) {
+        if (l < h) {
+            int p = lomutoPartition(arr, l, h);
+            quickSort(arr, l, p - 1);
+            quickSort(arr, p + 1, h );
+        }
+    }
 
+    public static int lomutoPartition(int[] arr, int l, int h) {
+        int i = l-1, p = arr[h];
+        for (int j = l; j <= h; j++) {
+            if (arr[j] < p) {
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+        arr[h] = arr[i + 1] + arr[h] - (arr[i + 1] = arr[h]);
+        return i + 1;
+    }
 
 }

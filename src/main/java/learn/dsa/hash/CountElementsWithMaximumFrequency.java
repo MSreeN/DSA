@@ -12,7 +12,7 @@ public class CountElementsWithMaximumFrequency {
         int arr[] = {3, 3, 2, 3, 1, 4};
         for (int i = 0; i < arr.length; i++) {
             frequencyMap.computeIfPresent(arr[i], (k, v) -> v + 1);
-            frequencyMap.computeIfAbsent(arr[i], k -> 1);
+            frequencyMap.putIfAbsent(arr[i], 1);
         }
         int count = 0;
         int max = Integer.MIN_VALUE;
@@ -21,7 +21,7 @@ public class CountElementsWithMaximumFrequency {
                 max = val;
             }
         }
-
+        
 
         for(Integer val: frequencyMap.values()){
             if(max == val) count+=val;

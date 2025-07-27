@@ -2,12 +2,12 @@ package learn.dsa.Arrays;
 
 public class RotateArray {
     public static void main(String[] args) {
-        int[] arrOrg = {-1, -100, 3, 99};
+        int[] arrOrg = {6,4,16,18,1,2,19,34,61};
         for (int i : arrOrg) {
             System.out.print(i + ", ");
         }
         System.out.println();
-        inPlaceRotate(arrOrg, 2);
+        inPlaceRotate(arrOrg, 4);
         for(int i : arrOrg){
             System.out.print(i + ", ");
         }
