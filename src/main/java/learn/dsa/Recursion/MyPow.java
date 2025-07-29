@@ -7,6 +7,7 @@ public class MyPow {
         double result = new MyPow().doPow(x, n);
         if(n < 0) result = 1 / result;
         System.out.println(result);
+        System.out.println(x % 2);
     }
 
     public double doPow(double x, int n){
