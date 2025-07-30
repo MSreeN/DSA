@@ -8,7 +8,7 @@ public class InfixToPostFix {
 //        String str = "a+(b*c)";
 //        String str = "(a+(b*(c-d)))";
 //        String str = "((a+((b*c)/d))+e)";
-        String str = "a+b*c+d";
+        String str = "a*(b+c*(d-e))"; //abc*+d+
         System.out.println(infixToPostFix(str));
     }
 
@@ -16,14 +16,19 @@ public class InfixToPostFix {
         Deque<Character> stack = new ArrayDeque<>();
         StringBuilder res = new StringBuilder();
         for(char c: str.toCharArray()){
-            if(!Character.isAlphabetic(c)) stack.push(c);
-            else if(Character.isAlphabetic(c)) res.append(c);
-            if(c == ')'){
-                stack.poll();
-                while(stack.peek() != '('){
+            if (c == ')') {
+                while (stack.peek() != '(') {
                     res.append(stack.poll());
                 }
                 stack.poll();
+            }
+            else if(Character.isLetterOrDigit(c)) res.append(c);
+            else if(c == '(') stack.push(c);
+            else{
+                while (!stack.isEmpty() && getPriority(c) <= getPriority(stack.peek())) {
+                    res.append(stack.poll());
+                }
+                stack.push(c);
             }
         }
         while(!stack.isEmpty()){
@@ -31,5 +36,14 @@ public class InfixToPostFix {
         }
 
         return res.toString();
+    }
+
+    public static int getPriority(char c){
+        return switch (c) {
+            case '^' -> 4;
+            case '*', '/' -> 3;
+            case '+', '-' -> 2;
+            default -> -1;
+        };
     }
 }
