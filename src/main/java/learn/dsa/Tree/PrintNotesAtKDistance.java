@@ -1,5 +1,7 @@
 package learn.dsa.Tree;
 
+import com.sun.source.tree.Tree;
+
 import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -22,7 +24,9 @@ class PrintNotesAtKDistance {
         node15.left = node8;
 //        printNodes(root, 2);
 //        levelOrder(root);
-        printNodesSecondary(root);
+//        printNodesSecondary(root);
+//        printNodesAtKDistance(root, 2);
+        printNodesAsTree(root);
     }
 
     public static void printNodes(TreeNode root, int req){
@@ -76,4 +80,35 @@ class PrintNotesAtKDistance {
         }
     }
     }
+
+    public static void printNodesAtKDistance(TreeNode root, int level){
+        if(root == null) return;
+        if(level == 0){
+            System.out.print(root.value + " ");
+            return;
+        }
+        printNodesAtKDistance(root.left, level-1);
+        printNodesAtKDistance(root.right, level-1);
+    }
+
+    public static void printNodesAsTree(TreeNode root){
+        Queue<TreeNode> queue = new LinkedList<>();
+        if(root == null) return;
+        TreeNode node;
+        queue.add(root);
+        queue.add(null);
+        while (!queue.isEmpty()) {
+            node = queue.poll();
+            if (node != null) {
+                System.out.print(node.value +" ");
+                if(node.left != null) queue.add(node.left);
+                if(node.right != null) queue.add(node.right);
+            }else{
+                System.out.println();
+                queue.add(null);
+                if(queue.size() == 1) break;
+            }
+        }
+    }
 }
+
