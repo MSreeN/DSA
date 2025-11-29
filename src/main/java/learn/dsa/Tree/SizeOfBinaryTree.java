@@ -19,6 +19,17 @@ public class SizeOfBinaryTree {
         TreeNode node6 = new TreeNode(6);
         treeNode2.left = node6;
         System.out.println(size(root));
+        System.out.println(getTreeSize(root));
+    }
+
+    public static int getTreeSize(TreeNode root){
+        int size =1;
+        if(root == null) return 0;
+        else{
+            size+= getTreeSize(root.left);
+            size+= getTreeSize(root.right);
+        }
+        return size;
     }
 
     public static int size(TreeNode node){
