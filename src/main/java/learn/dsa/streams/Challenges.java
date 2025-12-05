@@ -1,11 +1,7 @@
 package learn.dsa.streams;
 
-import org.apache.poi.hpsf.Decimal;
-
-import javax.xml.transform.sax.SAXResult;
 import java.util.*;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -192,6 +188,23 @@ public class Challenges {
         boolean res =  IntStream.rangeClosed(0, finalStr.length()/2)
                 .noneMatch(i -> finalStr.charAt(i) != finalStr.charAt(finalStr.length() -1 -i));
         System.out.println(res);
+    }
+
+    public record Employee(int id, String name, String salary) {
+    }
+
+    private void sortEmployeesBasedOnSalaryIntoMap(){
+        List<Employee> employees = Arrays.asList(
+                new Employee(1, "vishnu", "70000"),
+                new Employee(2, "chaitanys", "60000"),
+                new Employee(2, "sai", "300000"),
+                new Employee(2, "khyathi", "6500000"),
+                new Employee(2, "mahesh", "5500000")
+        );
+        Map<String, String> map = employees.stream().sorted(Comparator.comparing(Employee::salary)).
+                collect(Collectors.toMap(Employee::name, Employee::salary, (a, b)->a));
+        map.forEach(System.out::printf);
+
     }
 
 
