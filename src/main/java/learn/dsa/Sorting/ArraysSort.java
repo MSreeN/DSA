@@ -1,15 +1,15 @@
 package learn.dsa.Sorting;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
+import learn.dsa.Sorting.model.Employee;
+
+import java.util.*;
 
 public class ArraysSort {
 
     public static void main(String[] args) {
 //        nonPrimitiveSort();
-        primitiveSort();
+//        primitiveSort();
+        sortEmployeeRecord();
     }
 
     public static void nonPrimitiveSort(){
@@ -27,6 +27,17 @@ public class ArraysSort {
         for(int a: arr){
             System.out.print(a+" ");
         }
+    }
+
+    public static void sortEmployeeRecord(){
+        List<Employee>  employeeList= Arrays.asList(
+                new Employee(0,"first", "9999"),
+                new Employee(3, "khyathi", "3000"),
+                new Employee(1, "ram", "5000"),
+                new Employee(8, "raj", "900")
+        );
+        Collections.sort(employeeList);
+        employeeList.forEach(System.out::println);
     }
 
     class MyComparator implements Comparator<Integer>{

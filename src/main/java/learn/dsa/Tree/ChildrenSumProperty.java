@@ -1,6 +1,7 @@
 package learn.dsa.Tree;
 
 public class ChildrenSumProperty {
+    static int childSum = 0;
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(3);
@@ -12,21 +13,12 @@ public class ChildrenSumProperty {
         root.right = node2;
         node2.left = node11;
         node2.right = node22;
-        check(root);
+//        check(root);
     }
 
-    public static int check(TreeNode root){
-        int childSum=0;
-        if(root == null) return 0;
-        else{
-            if(root.left == null && root.right == null) childSum = root.value;
-            else{
-                childSum += check(root.left);
-                childSum += check(root.right);
-            }
-        }
-        return childSum;
-    }
+//    public static boolean check(TreeNode root){
+//       if(root==null) return  true;
+//    }
 
 
 }
