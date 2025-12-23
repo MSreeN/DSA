@@ -198,11 +198,40 @@ public class Challenges {
                 new Employee(2, "khyathi", "6500000"),
                 new Employee(2, "mahesh", "5500000")
         );
-        Map<String, String> map = employees.stream().sorted(Comparator.comparing(Employee::salary)).
+        Map<String, String> map =
+                employees.stream().sorted(Comparator.comparing(Employee::salary)).
                 collect(Collectors.toMap(Employee::name, Employee::salary, (a, b)->a,
                         LinkedHashMap::new));
         map.forEach((ele, v) -> System.out.println(ele+" "+v));
 
+    }
+
+    //     Filter Even Numbers from a List
+    public static void filterEvenNumbersFromAList() {
+        Stream.of(1, 2, 3, 4, 5, 6).filter(ele -> ele % 2 == 0).forEach(System.out::println);
+    }
+
+//    . Find Maximum in a List
+    public static void FindMaxInList(){
+//        System.out.println(Stream.of(1,2,3,4,5,4).max(Comparator.naturalOrder()).orElseGet(() -> null));
+        System.out.println(Stream.of(1,2,8,3,4,5,4).max((a, b) -> b-a).orElseGet(() -> null));
+    }
+
+    public static void SortEmployeeReverse(){
+        List<Employee> employees = Arrays.asList(
+                new Employee(1, "vishnu", "70000"),
+                new Employee(2, "chaitanys", "60000"),
+                new Employee(3, "sai", "300000"),
+                new Employee(4, "khyathi", "6500000"),
+                new Employee(5, "mahesh", "5500000")
+        );
+        employees.stream().sorted(Comparator.comparing(Employee::salary).reversed()).toList();
+    }
+
+//    Count Strings with Specific Prefix
+    public static void countStringsWithSpecificPrefix(){
+        List<String> names = Arrays.asList("Alice", "Bob", "Annie", "Alex", "Charlie");
+        names.stream().filter(ele -> ele.startsWith("A")).count();
     }
 
 
@@ -210,6 +239,8 @@ public class Challenges {
 //        frequencyOfCharInString();
 //        findFirstTest();
 //        checkIfStringPalindrome();
-        sortEmployeesBasedOnSalaryIntoMap();
+//        sortEmployeesBasedOnSalaryIntoMap();
+//        filterEvenNumbersFromAList();
+        FindMaxInList();
     }
 }
