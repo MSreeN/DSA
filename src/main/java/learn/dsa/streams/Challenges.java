@@ -3,6 +3,7 @@ package learn.dsa.streams;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -192,11 +193,11 @@ public class Challenges {
 
     private static void sortEmployeesBasedOnSalaryIntoMap(){
         List<Employee> employees = Arrays.asList(
-                new Employee(1, "vishnu", "70000"),
-                new Employee(2, "chaitanys", "60000"),
-                new Employee(2, "sai", "300000"),
-                new Employee(2, "khyathi", "6500000"),
-                new Employee(2, "mahesh", "5500000")
+                new Employee(1,3 ,"vishnu", "70000"),
+                new Employee(2,3, "chaitanys", "60000"),
+                new Employee(2,6, "sai", "300000"),
+                new Employee(2, 8,"khyathi", "6500000"),
+                new Employee(2, 8,"mahesh", "5500000")
         );
         Map<String, String> map =
                 employees.stream().sorted(Comparator.comparing(Employee::salary)).
@@ -219,11 +220,11 @@ public class Challenges {
 
     public static void SortEmployeeReverse(){
         List<Employee> employees = Arrays.asList(
-                new Employee(1, "vishnu", "70000"),
-                new Employee(2, "chaitanys", "60000"),
-                new Employee(3, "sai", "300000"),
-                new Employee(4, "khyathi", "6500000"),
-                new Employee(5, "mahesh", "5500000")
+                new Employee(1,4, "vishnu", "70000"),
+                new Employee(2, 4, "chaitanys", "60000"),
+                new Employee(3, 4, "sai", "300000"),
+                new Employee(4, 4, "khyathi", "6500000"),
+                new Employee(5, 4, "mahesh", "5500000")
         );
         employees.stream().sorted(Comparator.comparing(Employee::salary).reversed()).toList();
     }
@@ -234,6 +235,63 @@ public class Challenges {
         names.stream().filter(ele -> ele.startsWith("A")).count();
     }
 
+    public static void findLongestString(){
+        List<String> listOfStrings = List.of("aaaaa", "b", "cde", "bc");
+        String s = listOfStrings.stream().max(Comparator.comparing(String::length)).orElse(null);
+        System.out.println(s);
+    }
+
+    public static void employeeAvgAge(){
+        List<Employee> employeeList = List.of(
+                new Employee(1, 20, "abc", "1"),
+                new Employee(1, 25, "abc", "1"),
+                new Employee(1, 46, "abc", "1"),
+                new Employee(1, 49, "abc", "1")
+        );
+
+        double avg = employeeList.stream().mapToInt(Employee::age).average().orElse(0.00);
+        System.out.println(avg);
+    }
+
+    public static void mergeTwoUnsortedLists(){
+        List<Integer> list = List.of(5,7,6,3,2);
+        List<Integer> list2 = List.of(2,8,6,8,4,1,7,2);
+        List<Integer> result = Stream.concat(list.stream(), list2.stream()).sorted().distinct().toList();
+        System.out.println(result);
+    }
+
+    public static void groupByEmployeeName(){
+        List<Employee> employeeList = List.of(
+                new Employee(1, 20, "abc", "100"),
+                new Employee(1, 25, "abc", "100"),
+                new Employee(1, 46, "abc", "100"),
+                new Employee(1, 49, "cde", "10"),
+                new Employee(1, 49, "cde", "10"),
+                new Employee(1, 49, "cde", "10")
+        );
+
+        Map<String, Integer> map =
+                employeeList.stream().collect(Collectors.groupingBy(Employee::name
+                , Collectors.summingInt(emp -> Integer.parseInt(emp.salary()))));
+        System.out.println(map);
+    }
+
+    public static void occurrencesOfString(){
+        List<String> names = List.of("Khyathi", "mahesh", "khyathi", "nag", "nag");
+        Map<String, Long> table =
+                names.stream().collect(Collectors.groupingBy(Function.identity(),
+                Collectors.counting()));
+        System.out.println(table);
+    }
+
+    public static void occurrencesOfString2() {
+        List<String> names = List.of("Khyathi", "lkijuhy", "mahesh", "khyathi", "nag", "nag");
+        Map<Integer, Long> table =
+                names.stream().collect(Collectors.groupingBy(String::length,
+                        Collectors.counting()));
+        System.out.println(table);
+    }
+
 
     public static void main(String[] args) {
 //        frequencyOfCharInString();
@@ -241,6 +299,11 @@ public class Challenges {
 //        checkIfStringPalindrome();
 //        sortEmployeesBasedOnSalaryIntoMap();
 //        filterEvenNumbersFromAList();
-        FindMaxInList();
+//        FindMaxInList();
+//        findLongestString();
+//        employeeAvgAge();
+//        mergeTwoUnsortedLists();
+//        groupByEmployeeName();
+        occurrencesOfString2();
     }
 }
