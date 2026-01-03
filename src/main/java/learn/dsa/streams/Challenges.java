@@ -286,10 +286,54 @@ public class Challenges {
 
     public static void occurrencesOfString2() {
         List<String> names = List.of("Khyathi", "lkijuhy", "mahesh", "khyathi", "nag", "nag");
+        names.stream().collect(Collectors.joining("[", ",", "]"));
         Map<Integer, Long> table =
                 names.stream().collect(Collectors.groupingBy(String::length,
                         Collectors.counting()));
         System.out.println(table);
+    }
+
+    public static void sumWithReduce(){
+        List<Integer> list = List.of(1,2,9,3,4,5);
+        int res = list.stream().reduce( Integer::sum).orElse(0);
+        System.out.println(res);
+    }
+
+    public static void findMaxElementWithReduce(){
+        List<Integer> list = List.of(100, 1,2,9,3,4,5);
+//        int res = list.stream().min(Comparator.reverseOrder()).orElse(-1);
+        int res = list.stream().reduce((a, b) -> a>b? a:b).orElse(-1);
+        System.out.println(res);
+    }
+
+//    Concatenate all strings with - between them
+    public static void concatenateString(){
+        List<String> names = List.of("Khyathi", "lkijuhy", "mahesh", "khyathi", "nag", "nag");
+        String res = String.join("-", names);
+        res = names.stream().collect(Collectors.joining("-"));
+        res = names.stream().reduce((a, b) -> a+"-"+b).orElse("");
+        System.out.println(res);
+    }
+
+    public static void findLongestString2(){
+        List<String> names = List.of("asdkfjadsfkjasfd", "Khyathadfi", "lkijuhy", "mahesh",
+                "khyathi", "nag", "nag");
+        String longestString = names.stream().max(Comparator.reverseOrder()).orElse("");
+        longestString = names.stream().max(Comparator.comparing(String::length)).orElse("");
+        System.out.println(longestString);
+    }
+
+    public static void countTotalCharactersAcrossAllStrings(){
+        List<String> names = List.of("asdkfjadsfkjasfd", "Khyathadfi", "lkijuhy", "mahesh",
+                "khyathi", "nag");
+        Map<String, Integer> map = names.stream().collect(Collectors.toMap(Function.identity(),
+                String::length));
+//        int i = names.stream().reduce(0, (a, b) -> a+b.length());
+        int totalChars = names.stream()
+                .reduce(0,
+                        (sum, str) -> sum + str.length(), Integer::sum);
+
+        System.out.println(map);
     }
 
 
@@ -304,6 +348,11 @@ public class Challenges {
 //        employeeAvgAge();
 //        mergeTwoUnsortedLists();
 //        groupByEmployeeName();
-        occurrencesOfString2();
+//        occurrencesOfString2();
+//        sumWithReduce();
+//        findMaxElementWithReduce();
+//        concatenateString();
+//        findLongestString2();
+        countTotalCharactersAcrossAllStrings();
     }
 }

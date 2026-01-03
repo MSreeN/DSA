@@ -18,21 +18,29 @@ public class BSTOperations {
         node15.right=node20;
         node20.left=node18;
         node18.left=node16;
-        node20.right=node18;
+        node20.right=node80;
 
 //        deleteNode(node5, 3);
-        secondaryDeleteNode(node5, 3);
-        inorderTraversal(node5);
+//        secondaryDeleteNode(node5, 3);
+//        inorderTraversal(node5);
+        System.out.println(search(node15, 20));
     }
 
-//    public boolean search(TreeNode root, int val){
-//        if(root==null) return false;
-//        else{
-//            if(root.value == val) return true;
-//            else if(root.value < val) return search(root.right, val);
-//            else if(root.value > val) return search(root.left, val);
-//        }
-//    }
+    public static boolean search(TreeNode root, int val){
+        if(root==null) return false;
+        else{
+            if(root.value == val) return true;
+            else if(root.value < val) return search(root.right, val);
+            else if(root.value > val) return search(root.left, val);
+        }
+        return false;
+    }
+
+    public void insert(TreeNode root, int val){
+        if(root.value > val){
+            
+        }
+    }
 
 
     public static TreeNode secondaryDeleteNode(TreeNode root, int num){
