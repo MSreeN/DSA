@@ -2,6 +2,7 @@ package learn.dsa.streams;
 
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -43,7 +44,8 @@ public class Challenges {
 
     public static void sortString(){
         List<String> strings = List.of("a", "d","z","c","d");
-        List<String> sortedStrings = strings.stream().sorted(Comparator.reverseOrder()).toList();
+        List<String> sortedStrings =
+                strings.stream().sorted(Comparator.reverseOrder()).toList();
         System.out.println(sortedStrings);
     }
 
@@ -67,7 +69,7 @@ public class Challenges {
         BiConsumer<String, List<String>> consumer =
                 (key, value) -> System.out.println(key +" "+value.size());
         List<String> elements = List.of("a","a", "b", "b","c");
-        elements.stream().collect(Collectors.groupingBy(ele -> ele)).forEach(consumer::accept);
+        elements.stream().collect(Collectors.groupingBy(ele -> ele)).forEach(consumer);
     }
 
     public static void joinStrings(){
@@ -332,8 +334,15 @@ public class Challenges {
         int totalChars = names.stream()
                 .reduce(0,
                         (sum, str) -> sum + str.length(), Integer::sum);
-
         System.out.println(map);
+    }
+
+    public static void frequencyOfCharsInString2(){
+        String s = "strings";
+        char[] c = s.toCharArray();
+        BiConsumer<String, List<String>> consumer = (k, v) -> System.out.println(v.size());
+        Arrays.stream(s.split("")).collect(Collectors.groupingBy(e -> e))
+                .forEach(consumer);
     }
 
 
@@ -353,6 +362,8 @@ public class Challenges {
 //        findMaxElementWithReduce();
 //        concatenateString();
 //        findLongestString2();
-        countTotalCharactersAcrossAllStrings();
+//        countTotalCharactersAcrossAllStrings();
+//        frequencyOfCharInString();
+        frequencyOfCharsInString2();
     }
 }

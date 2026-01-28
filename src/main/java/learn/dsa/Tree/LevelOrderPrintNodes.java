@@ -1,5 +1,9 @@
 package learn.dsa.Tree;
 
+import learn.dsa.streams.Employee;
+
+import java.util.stream.IntStream;
+
 public class LevelOrderPrintNodes {
     public static void main(String[] args) {
         TreeNode root = new TreeNode(10);
@@ -20,9 +24,9 @@ public class LevelOrderPrintNodes {
         treeNode2.left = node6;
     }
 
-    public static void levelOrder(TreeNode root){
+    public static void levelOrder(TreeNode root) {
         if (root != null) {
-
+            
         }
     }
 }
