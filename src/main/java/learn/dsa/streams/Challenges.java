@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.mapping;
+
 public class Challenges {
 
 
@@ -201,6 +203,9 @@ public class Challenges {
                 new Employee(2, 8,"khyathi", "6500000"),
                 new Employee(2, 8,"mahesh", "5500000")
         );
+
+        System.out.println(employees.stream().sorted(Comparator.comparing(Employee::salary).reversed()).skip(1).findFirst());
+        employees.stream().filter(emp -> emp.name().equals("vishnu")).count();
         Map<String, String> map =
                 employees.stream().sorted(Comparator.comparing(Employee::salary)).
                 collect(Collectors.toMap(Employee::name, Employee::salary, (a, b)->a,
@@ -345,8 +350,18 @@ public class Challenges {
                 .forEach(consumer);
     }
 
+    public static void namesCount(){
+        List<String> names = List.of("Ram", "ram", "Rajesh", "Mahesh", "mahesh");
+        Map<String, Long> result =
+                names.stream().collect(Collectors.groupingBy(String::toLowerCase,
+                        Collectors.counting()));
+
+        System.out.println(result);
+    }
+
 
     public static void main(String[] args) {
+        namesCount();
 //        frequencyOfCharInString();
 //        findFirstTest();
 //        checkIfStringPalindrome();
@@ -364,6 +379,6 @@ public class Challenges {
 //        findLongestString2();
 //        countTotalCharactersAcrossAllStrings();
 //        frequencyOfCharInString();
-        frequencyOfCharsInString2();
+//        frequencyOfCharsInString2();
     }
 }
