@@ -30,7 +30,7 @@ class LRU<K, V> {
         Node temp = this.head;
         if(this.head != null){
         this.head.prev = node;
-        }
+        }   
         this.head = node;
         node.next = temp;
         this.printNodes(this.head);

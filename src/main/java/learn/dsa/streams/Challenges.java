@@ -53,8 +53,10 @@ public class Challenges {
 
     public static void maxAndMin(){
         List<Integer> numbers = List.of(4,3,6,3,89);
-        int min = numbers.stream().min(Comparator.reverseOrder()).get();
-        int max = numbers.stream().max(Integer::compare).get();
+        int min = numbers.stream().mapToInt(ele -> ele).max().getAsInt(); 
+        // min(Comparator.reverseOrder()).get();
+//        int max = numbers.stream().max(Integer::compare).get();
+        int max = numbers.stream().max(Comparator.naturalOrder()).get();
         System.out.println(min);
         System.out.println(max);
     }
@@ -85,7 +87,8 @@ public class Challenges {
 
     public static void sortDecimals(){
         List<Double> decimals = List.of(10.4, 23.67,1.4,45.00);
-        List<Double> sortedDecimals = decimals.stream().sorted(Comparator.reverseOrder()).toList();
+        List<Double> sortedDecimals =
+                decimals.stream().sorted(Comparator.reverseOrder()).toList();
         System.out.println(sortedDecimals);
     }
 
@@ -377,10 +380,18 @@ public class Challenges {
         System.out.println(groupedMap.size() +" "+sum);
     }
 
+    public static void testingMap(){
+        List<String> list = Arrays.asList("dog", "dom", "cat", "car", "paper");
+        var result = list.stream().collect(Collectors.groupingBy(ele -> ele.substring(0,2)));
+        System.out.println(result);
+    }
 
     public static void main(String[] args) {
+        testingMap();
         // namesCount();
-        jobSequence();
+        // jobSequence();
+        maxAndMin();
+        // joinStrings();
 //        frequencyOfCharInString();
 //        findFirstTest();
 //        checkIfStringPalindrome();
@@ -398,6 +409,7 @@ public class Challenges {
 //        findLongestString2();
 //        countTotalCharactersAcrossAllStrings();
 //        frequencyOfCharInString();
+// frequencyOfEachElement();
 //        frequencyOfCharsInString2();
     }
 }
